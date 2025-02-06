@@ -1,0 +1,80 @@
+import org.openqa.selenium.By;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import static org.example.Constant.expectedPageTitle;
+
+public class AutomationExerciseTests extends BaseTest {
+    @Test
+    public void RegisterUser()
+    {
+        var pageTitle=driver.getTitle();
+
+        Assert.assertEquals(pageTitle, expectedPageTitle);
+
+        homepage.ClickSignupButton();
+        loginpage.Signup();
+        enterAccountInformationPage.FillInInformation();
+
+        //Страница Account Created!
+
+        var accountCreated = driver.findElement(By.xpath("//h2[@data-qa='account-created']"));
+        Assert.assertTrue(accountCreated.isDisplayed(), "Аккаунт не создан");
+
+        accountCreatedPage.ClickContinueButton();
+
+        homepage.ClickDeleteButton();
+
+        var accountDeleted = driver.findElement(By.xpath("//b[text()='Account Deleted!']"));
+        Assert.assertTrue(accountDeleted.isDisplayed(), "Element User Name isn't displayed");
+
+        accountCreatedPage.ClickContinueButton();
+    };
+    @Test
+    public void  LoginUserWithCorrectEmailAndPassword()
+    {
+        var pageTitle=driver.getTitle();
+
+        Assert.assertEquals(pageTitle, expectedPageTitle);
+        homepage.ClickSignupButton();
+
+        var loginFormName= driver.findElement(By.xpath("//h2[text()='Login to your account']"));
+        Assert.assertTrue(loginFormName.isDisplayed(),"Login Form isn't displayed");
+
+        loginpage.Login();
+
+        var userName= driver.findElement(By.xpath("//b[text()='Василий']"));
+        Assert.assertTrue(userName.isDisplayed(),"Element User Name isn't displayed");
+    }
+    @Test
+    public void ContactUs()
+    {
+        contactUpPage.FillInContactInformation();
+        var actualText= driver.findElement(By.xpath("//div[@class='status alert alert-success']"));
+        var actualTextProperty= actualText.getText();
+        Assert.assertEquals(actualTextProperty,"Success! Your details have been submitted successfully.");
+
+        var homeButton= driver.findElement(By.xpath("//a[@class='btn btn-success']"));
+        homeButton.click();
+
+        var homePageTitle =driver.getTitle();
+        Assert.assertEquals(homePageTitle, expectedPageTitle);
+    }
+    @Test
+    public void AddProductsInCart()
+    {
+        var pageTitle=driver.getTitle();
+
+        Assert.assertEquals(pageTitle, expectedPageTitle);
+
+        homepage.ClickProductsButton();
+        productsPage.AddProductToCart();
+
+        var firstProduct = driver.findElement(By.xpath("//a[@href='/product_details/1']"));
+        var secondProduct = driver.findElement(By.xpath("//a[@href='/product_details/2']"));
+        Assert.assertTrue(firstProduct.isDisplayed(),"Element First Product isn't displayed");
+        Assert.assertTrue(secondProduct.isDisplayed(),"Element Second Product isn't displayed");
+
+        var firstProductPrice= driver.findElement(By.xpath("//p[text()='Rs. 500']"));
+        Assert.assertEquals(firstProductPrice.getText(),"Rs. 500","Price isn't correct");
+    }
+}
