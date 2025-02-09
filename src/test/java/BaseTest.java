@@ -6,8 +6,8 @@ import org.testng.annotations.BeforeTest;
 
 public class BaseTest {
     protected WebDriver driver;
-    protected HomePage homepage;
-    protected LoginSignupPage loginpage;
+    protected HomePage homePage;
+    protected LoginSignupPage loginPage;
     protected EnterAccountInformationPage enterAccountInformationPage;
     protected AccountCreatedPage accountCreatedPage;
     protected ContactUpPage contactUpPage;
@@ -17,14 +17,16 @@ public class BaseTest {
     public void Setup()
     {
         driver= new ChromeDriver();
-        homepage= new HomePage(driver);
-        loginpage= new LoginSignupPage(driver);
+        driver.get("http://automationexercise.com");
+        driver.manage().window().maximize();
+        homePage = new HomePage(driver);
+        loginPage = new LoginSignupPage(driver);
         enterAccountInformationPage = new EnterAccountInformationPage(driver);
         accountCreatedPage = new AccountCreatedPage(driver);
         contactUpPage = new ContactUpPage(driver);
         productsPage = new ProductsPage(driver);
-        driver.get("http://automationexercise.com");
     }
+
     @AfterTest
     public void CloseDriver()
     {

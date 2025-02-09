@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 import static org.example.Constant.expectedPageTitle;
 
 public class AutomationExerciseTests extends BaseTest {
+
     @Test
     public void RegisterUser()
     {
@@ -11,8 +12,8 @@ public class AutomationExerciseTests extends BaseTest {
 
         Assert.assertEquals(pageTitle, expectedPageTitle);
 
-        homepage.ClickSignupButton();
-        loginpage.Signup();
+        homePage.ClickSignupButton();
+        loginPage.Signup();
         enterAccountInformationPage.FillInInformation();
 
         //Страница Account Created!
@@ -22,29 +23,31 @@ public class AutomationExerciseTests extends BaseTest {
 
         accountCreatedPage.ClickContinueButton();
 
-        homepage.ClickDeleteButton();
+        homePage.ClickDeleteButton();
 
         var accountDeleted = driver.findElement(By.xpath("//b[text()='Account Deleted!']"));
         Assert.assertTrue(accountDeleted.isDisplayed(), "Element User Name isn't displayed");
 
         accountCreatedPage.ClickContinueButton();
-    };
+    }
+
     @Test
     public void  LoginUserWithCorrectEmailAndPassword()
     {
         var pageTitle=driver.getTitle();
 
         Assert.assertEquals(pageTitle, expectedPageTitle);
-        homepage.ClickSignupButton();
+        homePage.ClickSignupButton();
 
         var loginFormName= driver.findElement(By.xpath("//h2[text()='Login to your account']"));
         Assert.assertTrue(loginFormName.isDisplayed(),"Login Form isn't displayed");
 
-        loginpage.Login();
+        loginPage.Login();
 
         var userName= driver.findElement(By.xpath("//b[text()='Василий']"));
         Assert.assertTrue(userName.isDisplayed(),"Element User Name isn't displayed");
     }
+
     @Test
     public void ContactUs()
     {
@@ -59,6 +62,7 @@ public class AutomationExerciseTests extends BaseTest {
         var homePageTitle =driver.getTitle();
         Assert.assertEquals(homePageTitle, expectedPageTitle);
     }
+
     @Test
     public void AddProductsInCart()
     {
@@ -66,7 +70,7 @@ public class AutomationExerciseTests extends BaseTest {
 
         Assert.assertEquals(pageTitle, expectedPageTitle);
 
-        homepage.ClickProductsButton();
+        homePage.ClickProductsButton();
         productsPage.AddProductToCart();
 
         var firstProduct = driver.findElement(By.xpath("//a[@href='/product_details/1']"));
