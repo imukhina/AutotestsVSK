@@ -17,12 +17,10 @@ public class AutomationExerciseTests extends BaseTest {
         enterAccountInformationPage.FillInInformation();
 
         //Страница Account Created!
-
         var accountCreated = driver.findElement(By.xpath("//h2[@data-qa='account-created']"));
         Assert.assertTrue(accountCreated.isDisplayed(), "Аккаунт не создан");
 
         accountCreatedPage.ClickContinueButton();
-
         homePage.ClickDeleteButton();
 
         var accountDeleted = driver.findElement(By.xpath("//b[text()='Account Deleted!']"));
