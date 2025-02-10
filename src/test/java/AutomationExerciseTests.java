@@ -1,16 +1,15 @@
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import static org.example.Constant.expectedPageTitle;
+
+import static org.example.Constant.actualTitle;
 
 public class AutomationExerciseTests extends BaseTest {
 
     @Test
     public void RegisterUser()
     {
-        var pageTitle=driver.getTitle();
-
-        Assert.assertEquals(pageTitle, expectedPageTitle);
+        Assert.assertTrue(homePage.AtCorrectPage(actualTitle), "Wrong page");
 
         homePage.ClickSignupButton();
         loginPage.Signup();
@@ -32,9 +31,7 @@ public class AutomationExerciseTests extends BaseTest {
     @Test
     public void  LoginUserWithCorrectEmailAndPassword()
     {
-        var pageTitle=driver.getTitle();
-
-        Assert.assertEquals(pageTitle, expectedPageTitle);
+        Assert.assertTrue(homePage.AtCorrectPage(actualTitle), "Wrong page");
         homePage.ClickSignupButton();
 
         var loginFormName= driver.findElement(By.xpath("//h2[text()='Login to your account']"));
@@ -57,16 +54,13 @@ public class AutomationExerciseTests extends BaseTest {
         var homeButton= driver.findElement(By.xpath("//a[@class='btn btn-success']"));
         homeButton.click();
 
-        var homePageTitle =driver.getTitle();
-        Assert.assertEquals(homePageTitle, expectedPageTitle);
+        Assert.assertTrue(homePage.AtCorrectPage(actualTitle), "Wrong page");
     }
 
     @Test
     public void AddProductsInCart()
     {
-        var pageTitle=driver.getTitle();
-
-        Assert.assertEquals(pageTitle, expectedPageTitle);
+        Assert.assertTrue(homePage.AtCorrectPage(actualTitle), "Wrong page");
 
         homePage.ClickProductsButton();
         productsPage.AddProductToCart();

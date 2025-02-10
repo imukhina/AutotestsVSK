@@ -9,4 +9,8 @@ public class BasePage {
     {
         this.driver = driver;
     }
+
+    public boolean AtCorrectPage(String title) {
+        return driver.getTitle().equals(title);
+    }
 }
